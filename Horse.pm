@@ -11,13 +11,10 @@ sub current_position() {
 sub attacks() {
     # Horse Limitation attacks
     # 8 posible positions
-    # Current position add or remove positions
 
     my $self = shift;
     print "\nHorse Attacks\n";
 
-    #print "Current $lower_factor\n";
-    
     my $left_up = $self->current_position - $self->low_factor;
     my $upper_left = $self->current_position - $self->bigger_factor;
     my $upper_right = $self->current_position - $self->big_factor;
@@ -47,28 +44,28 @@ sub attacks() {
 
 sub bigger_factor() {
     my $self = shift;
-    my $col = $self->col();
+    my $col = $self->board->col();
     my $factor = ($col*2)+1;
     return $factor;
 }
 
 sub big_factor() {
     my $self = shift;
-    my $col = $self->col();
+    my $col = $self->board->col();
     my $factor = ($col*2)-1;
     return $factor;
 }
 
 sub low_factor() {
     my $self = shift;
-    my $col = $self->col();
+    my $col = $self->board->col();
     my $factor = $col+2;
     return $factor;
 }
 
 sub lower_factor() {
     my $self = shift;
-    my $col = $self->col();
+    my $col = $self->board->col();
     my $factor = $col-2;
     return $factor;
 }

@@ -10,9 +10,7 @@ sub new() {
     my $class = shift;
     my @args = @_;
     my %default = (
-        row => $args[0] || ROW,
-        col => $args[1] || COL,
-        size => $args[0]*$args[1] || SIZE,
+        board => $args[0],
     );
 
 
@@ -25,15 +23,9 @@ sub attacks() {
     return undef;
 }
 
-sub row() {
+sub board() {
     my $self = shift;
-    print "Row method\n";
-    return $self->{row};
+    return $self->{board};
 }
 
-sub col() {
-    my $self = shift;
-    #print "Col method\n";
-    return $self->{col};
-}
 1;

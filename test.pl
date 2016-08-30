@@ -2,18 +2,34 @@
 
 use Data::Dumper;
 
+use Board;
 use Queen;
 use Horse;
-#
-#my $q = new Queen();
-#my $a = $q->attacks();
-#print $q->row() ."\n";
-my $rows = 6;
-my $cols = 116;
 
-my $h = new Horse($rows, $cols);
+# Request board size
 
-print $h->col();
+print "Set the board (default 8x8)\n";
+print "Rows (8): ";
+$row = <stdin>;
+print "Columns (8): ";
+$col = <stdin>;
+
+my $row = $row =~/^\d+$/ ? $row : 8;
+my $col = $col =~/^\d+$/ ? $col : 8;
+
+my $b = new Board($row, $col);
+
+print "Board Size: ". $b->size;
+
+# Calculate position where a Horse can attack
+my $h = new Horse($b);
+
 foreach $pos ($h->attacks) {
     print $pos . "\n";
 }
+
+# Queen used to test
+#my $q = new Queen();
+#my $a = $q->attacks();
+#print $q->row() ."\n";
+
