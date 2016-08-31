@@ -1,19 +1,24 @@
-package Horse;
+package Knight;
 
 use base qw/Piece/;
 
+sub set_position() {
+    my $self = shift;
+    my @args = @_;
+
+    $self->{position} = $args[0];
+    return;
+}
 sub current_position() {
     my $self = shift;
-    # 13 has been choosen as part of a test 
-    return 41;
+    return $self->{position};
 }
 
 sub attacks() {
-    # Horse Limitation attacks
+    # Knight Limitation attacks
     # 8 posible positions
 
     my $self = shift;
-    print "\nHorse Attacks\n";
 
     my $left_up = $self->current_position - $self->low_factor;
     my $upper_left = $self->current_position - $self->bigger_factor;
@@ -40,7 +45,7 @@ sub attacks() {
 }
 
 # Next you will find methods to calculate positions to let your
-# horse attack from its current position
+# knight attack from its current position
 
 sub bigger_factor() {
     my $self = shift;

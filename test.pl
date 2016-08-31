@@ -1,35 +1,49 @@
 #!/usr/bin/perl
 
-use Data::Dumper;
-
 use Board;
-use Queen;
-use Horse;
+#use Queen;
+use Knight;
 
 # Request board size
+my ($row, $col) = @ARGV;
 
-print "Set the board (default 8x8)\n";
-print "Rows (8): ";
-$row = <stdin>;
-print "Columns (8): ";
-$col = <stdin>;
+unless ($row && $col) {
+    print "Set the board (default 8x8)\n";
+    print "Rows (8): ";
+    $row = <stdin>;
+    print "Columns (8): ";
+    $col = <stdin>;
+
+} else {
+    print "Board set as $row x $col \n";
+}
 
 my $row = $row =~/^\d+$/ ? $row : 8;
 my $col = $col =~/^\d+$/ ? $col : 8;
 
 my $b = new Board($row, $col);
 
-print "Board Size: ". $b->size;
+print "Board Size: ". $b->size ."\n";
+print "Available Positions: ". join(" ", $b->available_positions)."\n";
 
-# Calculate position where a Horse can attack
-my $h = new Horse($b);
+my $k = new Knight($b);
 
-foreach $pos ($h->attacks) {
-    print $pos . "\n";
-}
+#set a random position in the board
+$k->set_position($b->random_position);
+print "Current Position: ". $k->current_position . "\n";
 
-# Queen used to test
-#my $q = new Queen();
-#my $a = $q->attacks();
-#print $q->row() ."\n";
+$b->used_positions($k->current_position);
+
+# Calculate position where a Knight can attack
+print "Possible locations to attack from Current position: ". join (" ", $k->attacks) ."\n";
+
+# Eliminate positions used and attacked
+$b->used_positions($k->attacks);
+
+print "Available Positions: ". join(" ", $b->available_positions) ."\n";
+# The Board should be able to validate a list of positions
+# @valid_attacks = $k->board->validate_positions($k->attacks);
+
+print "\n";
+
 
